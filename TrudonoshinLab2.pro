@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     gauss.cpp \
     qcustomplot.cpp \
     equation.cpp \
-    boundarycondition.cpp
+    boundarycondition.cpp \
+    unevenstep.cpp
 
 HEADERS  += mkewindow.h \
     gauss.h \
     qcustomplot.h \
     equation.h \
-    boundarycondition.h
+    boundarycondition.h \
+    unevenstep.h
 
 FORMS    += mkewindow.ui

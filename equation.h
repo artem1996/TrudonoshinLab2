@@ -3,6 +3,7 @@
 #include <QVector>
 #include <gauss.h>
 #include <boundarycondition.h>
+#include <unevenstep.h>
 
 class Equation
 {
@@ -11,14 +12,12 @@ class Equation
     QVector<double> xValues;
     QVector<double> yValues;
     gauss *matrix;
-    int BCCount;
-    BoundaryCondition *BC;
+    QVector<BoundaryCondition> BC;
 public:
     Equation(double tK2, double tK1, double tK0, double tCons, double tXLeft, double tXRight);
     void simpleStep(int steps);
-    void difficultStep(int numSteps, double step);
-    void setBCCount(int n);
-    void setBC(int number, bool tType, double tPoint, double tValue);
+    void difficultStep(QVector<UnevenStep> steps);
+    void setBC(QVector<BoundaryCondition> tBC);
     void prepSolution();
     void solution();
     QVector<double> getXValues();

@@ -22,9 +22,10 @@ void Equation::simpleStep(int steps) {
     }
 }
 
-void Equation::difficultStep(int numSteps, double step) {
-    for(int i = 0; i < numSteps; i++) {
-        xSteps.append(step);
+void Equation::difficultStep(QVector<UnevenStep> steps) {
+    for(int i = 0; i < steps.size(); i++) {
+        for(int j = 0; i < steps[i].getNumSteps(); j++)
+            xSteps.append(steps[i].getStepSize());
     }
 }
 
@@ -32,10 +33,8 @@ void Equation::prepSolution() {
     matrix = new gauss(xSteps.size() + 1);
 }
 
-void Equation::setBC(int number, bool tType, double tPoint, double tValue) {
-    BC[number].setType(tType);
-    BC[number].setPoint(tPoint);
-    BC[number].setValue(tValue);
+void Equation::setBC(QVector<BoundaryCondition> tBC) {
+    BC = tBC;
 }
 
 void Equation::solution() {
@@ -68,7 +67,7 @@ void Equation::solution() {
         matrix->into_constants(i, cons*step/2);
         matrix->into_constants(j, cons*step/2);
 
-        if(BCPoint < BCCount && tempPoint >= BC[BCPoint].getValue() - DIAP) {
+        if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getValue() - DIAP) {
             if(BC[BCPoint].getType()) {
                 matrix->into_constants(i, -k2*BC[BCPoint].getValue());
                 BCPoint++;
@@ -86,7 +85,7 @@ void Equation::solution() {
         tempPoint += step;
     }
     xValues.push_back(tempPoint);
-    if(BCPoint < BCCount && tempPoint >= BC[BCPoint].getValue() - DIAP) {
+    if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getValue() - DIAP) {
         if(BC[BCPoint].getType()) {
             matrix->into_constants(i, -k2*BC[BCPoint].getValue());
             BCPoint++;
@@ -106,11 +105,6 @@ void Equation::solution() {
         yValues.push_back(sol[i]);
     }
     matrix->print_system();
-}
-
-void Equation::setBCCount(int n) {
-    BCCount = n;
-    BC = new BoundaryCondition[n];
 }
 
 QVector<double> Equation::getXValues() {

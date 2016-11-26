@@ -18,6 +18,8 @@ public:
     bool getType();
     double getPoint();
     double getValue();
+
+    friend bool operator<(const BoundaryCondition &first, const BoundaryCondition &second);
 };
 
 #endif // BOUNDARYCONDITION_H

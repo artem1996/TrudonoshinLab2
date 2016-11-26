@@ -35,3 +35,7 @@ double BoundaryCondition::getPoint() {
 double BoundaryCondition::getValue() {
     return value;
 }
+
+bool operator<(const BoundaryCondition &first, const BoundaryCondition &second) {
+    return (first.point < second.point);
+}
