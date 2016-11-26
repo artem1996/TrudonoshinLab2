@@ -18,7 +18,7 @@ void Equation::simpleStep(int steps) {
     double step = (xRight - xLeft) / steps;
     //std::cerr << step << '\n';
     for(int i = 0; i < steps; i++) {
-        xSteps.append(step);
+        xSteps.push_back(step);
     }
 }
 
@@ -35,9 +35,9 @@ void Equation::prepSolution() {
 
 void Equation::setBC(QVector<BoundaryCondition> tBC) {
     BC = tBC;
-    for(int i = 0; i < BC.size(); i++) {
-        std::cout << BC[i];
-    }
+//    for(int i = 0; i < BC.size(); i++) {
+//        std::cout << BC[i];
+//    }
 }
 
 void Equation::solution() {
@@ -48,8 +48,9 @@ void Equation::solution() {
     for(i = 0; i < xSteps.size(); i++) {
         xValues.push_back(tempPoint);
         //std::cerr << i << " ";
-        //std::cout << BCPoint << " from " << BCCount << " next value " << BC[BCPoint].getValue() << " type " << BC[BCPoint].getType() << "\n";
+        //std::cout << BCPoint << " from " << BC.size() << "\n";
         double step = xSteps[i];
+
         int j = i + 1;
 
         matrix->into_matrix(i,i,k2/step) ;
@@ -70,7 +71,7 @@ void Equation::solution() {
         matrix->into_constants(i, cons*step/2);
         matrix->into_constants(j, cons*step/2);
 
-        if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getValue() - DIAP) {
+        if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
             if(BC[BCPoint].getType()) {
                 matrix->into_constants(i, -k2*BC[BCPoint].getValue());
                 BCPoint++;
@@ -83,12 +84,13 @@ void Equation::solution() {
             }
         }
 
+        //std::cout << k2 << ' ' << k1 << ' ' << k0 << ' ' << cons << ' ' << step << "\n";
 
         //std::cout << tempPoint << '\n';
         tempPoint += step;
     }
     xValues.push_back(tempPoint);
-    if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getValue() - DIAP) {
+    if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
         if(BC[BCPoint].getType()) {
             matrix->into_constants(i, -k2*BC[BCPoint].getValue());
             BCPoint++;
@@ -100,14 +102,14 @@ void Equation::solution() {
             BCPoint++;
         }
     }
-
+    matrix->print_system();
     matrix->triangle();
     matrix->do_solution();
     double * sol = matrix->get_solution();
     for(i = 0; i < xValues.size(); i++) {
         yValues.push_back(sol[i]);
+        //std::cout << xValues[i] << '\t' << yValues[i] << '\n';
     }
-    matrix->print_system();
 }
 
 QVector<double> Equation::getXValues() {

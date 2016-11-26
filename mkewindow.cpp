@@ -82,10 +82,10 @@ void MKEWindow::on_GoButton_clicked()
     BC.push_front(BoundaryCondition(type1, point1, value1));
     BC.push_back(BoundaryCondition(type2, point2, value2));
 
-    Equation eq(k2, k1, k0, cons, value1, value2);
+    Equation eq(k2, k1, k0, cons, point1, point2);
 
     eq.setBC(BC);
-    std::cout << ui->evenStepRadio->isChecked() << '\n';
+    //std::cout << ui->evenStepRadio->isChecked() << '\n';
     if(ui->evenStepRadio->isChecked()) {
         int steps = atoi(ui->evenStepsNum->text().toUtf8().constData());
         eq.simpleStep(steps);
