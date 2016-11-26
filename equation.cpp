@@ -35,6 +35,9 @@ void Equation::prepSolution() {
 
 void Equation::setBC(QVector<BoundaryCondition> tBC) {
     BC = tBC;
+    for(int i = 0; i < BC.size(); i++) {
+        std::cout << BC[i];
+    }
 }
 
 void Equation::solution() {

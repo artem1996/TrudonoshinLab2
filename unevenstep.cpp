@@ -38,3 +38,8 @@ void UnevenStep::setDiapNumber(int tDiapNumber) {
 bool operator<(const UnevenStep &first, const UnevenStep &second) {
     return (first.diapNumber < second.diapNumber);
 }
+
+std::ostream &operator<<(std::ostream &out, UnevenStep &US) {
+    out << US.numSteps << '\t' << US.stepSize << '\t' << US.diapNumber << '\n';
+    return out;
+}

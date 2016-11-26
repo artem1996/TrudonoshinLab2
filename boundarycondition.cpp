@@ -39,3 +39,8 @@ double BoundaryCondition::getValue() {
 bool operator<(const BoundaryCondition &first, const BoundaryCondition &second) {
     return (first.point < second.point);
 }
+
+std::ostream &operator<<(std::ostream &out, BoundaryCondition &BC) {
+    out << BC.bType << '\t' << BC.point << '\t' << BC.value << '\n';
+    return out;
+}

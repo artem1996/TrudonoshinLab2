@@ -1,5 +1,6 @@
 #ifndef UNEVENSTEP_H
 #define UNEVENSTEP_H
+#include <iostream>
 
 
 class UnevenStep
@@ -18,6 +19,7 @@ public:
     void setDiapNumber(int tDiapNumber);
 
     friend bool operator<(const UnevenStep &first, const UnevenStep &second);
+    friend std::ostream &operator<<(std::ostream &out, UnevenStep &US);
 };
 
 #endif // UNEVENSTEP_H

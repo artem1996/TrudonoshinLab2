@@ -85,7 +85,7 @@ void MKEWindow::on_GoButton_clicked()
     Equation eq(k2, k1, k0, cons, value1, value2);
 
     eq.setBC(BC);
-
+    std::cout << ui->evenStepRadio->isChecked() << '\n';
     if(ui->evenStepRadio->isChecked()) {
         int steps = atoi(ui->evenStepsNum->text().toUtf8().constData());
         eq.simpleStep(steps);
