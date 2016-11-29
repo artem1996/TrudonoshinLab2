@@ -53,23 +53,23 @@ void Equation::solution() {
 
         int j = i + 1;
 
-        matrix->into_matrix(i,i,k2/step) ;
-        matrix->into_matrix(i,j,-k2/step)  ;
-        matrix->into_matrix(j,i,-k2/step) ;
-        matrix->into_matrix(j,j,k2/step) ;
+		matrix->into_matrix(i, i, k2 / step);
+		matrix->into_matrix(i, j, -k2 / step);
+		matrix->into_matrix(j, i, -k2 / step);
+		matrix->into_matrix(j, j, k2 / step);
 
-        matrix->into_matrix(i,i,-k1/2) ;
-        matrix->into_matrix(i,j,-k1/2)  ;
-        matrix->into_matrix(j,i,k1/2) ;
-        matrix->into_matrix(j,j,k1/2) ;
+		matrix->into_matrix(i, i, -k1 / 2);
+		matrix->into_matrix(i, j, -k1 / 2);
+		matrix->into_matrix(j, i, -k1 / 2);
+		matrix->into_matrix(j, j, -k1 / 2);
 
-        matrix->into_matrix(i,i,k0*step/3) ;
-        matrix->into_matrix(i,j,k0*step/6)  ;
-        matrix->into_matrix(j,i,k0*step/6) ;
-        matrix->into_matrix(j,j,k0*step/3) ;
+		matrix->into_matrix(i, i, -k0*step / 3);
+		matrix->into_matrix(i, j, -k0*step / 6);
+		matrix->into_matrix(j, i, -k0*step / 6);
+		matrix->into_matrix(j, j, -k0*step / 3);
 
-        matrix->into_constants(i, cons*step/2);
-        matrix->into_constants(j, cons*step/2);
+		matrix->into_constants(i, cons*step / 2);
+		matrix->into_constants(j, cons*step / 2);
 
         if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
             if(BC[BCPoint].getType()) {
