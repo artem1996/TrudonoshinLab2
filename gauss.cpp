@@ -21,10 +21,12 @@ gauss::~gauss() {
 
 int gauss::into_matrix(int str, int column, double value) {
     matrix[str][column] += value;
+    return 0;
 }
 
 int gauss::into_constants(int str, double value) {
     constants[str] += value;
+    return 0;
 }
 
 double* gauss::get_solution() {
@@ -76,6 +78,7 @@ int gauss::do_solution() {
         }
         solution[i] = only_con / matrix[i][i];
     }
+    return 0;
 }
 
 int gauss::reset() {
@@ -86,6 +89,7 @@ int gauss::reset() {
         constants[i] = 0;
         solution[i] = 0;
     }
+    return 0;
 }
 
 int gauss::print_system() {
@@ -96,6 +100,7 @@ int gauss::print_system() {
         cout << "||" << constants[i] << endl;
     }
     cout << ".................." << endl;
+    return 0;
 }
 
 int gauss::clearStr(int str) {
@@ -103,4 +108,5 @@ int gauss::clearStr(int str) {
         matrix[str][i] = 0;
     }
     constants[str] = 0;
+    return 0;
 }

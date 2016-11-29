@@ -90,6 +90,7 @@ void MKEWindow::on_GoButton_clicked()
         int steps = atoi(ui->evenStepsNum->text().toUtf8().constData());
         eq.simpleStep(steps);
     } else {
+        qSort(unevStep);
         eq.difficultStep(unevStep);
     }
     eq.prepSolution();
