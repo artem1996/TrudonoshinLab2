@@ -117,6 +117,14 @@ void MKEWindow::on_GoButton_clicked()
     // Заполняем график значениями
 
     graphic->setData(eq.getXValues(), eq.getYValues()); // Устанавливаем данные
+    QVector<double> Xval;
+    Xval.append(eq.getXValues());
+    QVector<double> Yval;
+    Yval.append(eq.getYValues());
+    for(int i = 0; i < Xval.size(); i++) {
+        double temp = 0.0625 * (20 * Xval[i] + 25 * exp(-4*Xval[i]) - 25 / exp(24) - 104);
+        std::cerr << Xval[i] << '\t' << Yval[i] << '\t' << temp << '\t' << fabs(Yval[i] - temp) << '\n';
+    }
     customPlot->rescaleAxes();      // Масштабируем график по данным
     customPlot->replot();           // Отрисовываем график
 
