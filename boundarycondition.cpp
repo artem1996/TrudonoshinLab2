@@ -5,14 +5,14 @@ BoundaryCondition::BoundaryCondition()
 
 }
 
-BoundaryCondition::BoundaryCondition(bool tType, double tPoint, double tValue)
+BoundaryCondition::BoundaryCondition(int tType, double tPoint, double tValue)
 {
     bType = tType;
     point = tPoint;
     value = tValue;
 }
 
-void BoundaryCondition::setType(bool tType) {
+void BoundaryCondition::setType(int tType) {
     bType = tType;
 }
 
@@ -24,7 +24,7 @@ void BoundaryCondition::setValue(double tValue) {
     value = tValue;
 }
 
-bool BoundaryCondition::getType() {
+int BoundaryCondition::getType() {
     return bType;
 }
 

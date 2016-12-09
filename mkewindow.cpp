@@ -8,8 +8,10 @@ MKEWindow::MKEWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->boundaryLeft->addItem("Константа");
     ui->boundaryLeft->addItem("Производная");
+    ui->boundaryLeft->addItem("3-й род");
     ui->boundaryRight->addItem("Константа");
     ui->boundaryRight->addItem("Производная");
+    ui->boundaryRight->addItem("3-й род");
     ui->apprType->addItem("Линейная");
     ui->apprType->addItem("Квадратичная");
     ui->BLEq->setAlignment(Qt::AlignRight);
@@ -45,19 +47,35 @@ MKEWindow::~MKEWindow()
 
 void MKEWindow::on_boundaryLeft_currentIndexChanged(int index)
 {
-    if(index) {
+    if(index == 1) {
         ui->BLEq->setText("dV/dx(x = ");
-    } else {
+        ui->leftValue->setText("");
+        ui->leftValue->setEnabled(true);
+    } else if(index == 0) {
         ui->BLEq->setText("V(x = ");
+        ui->leftValue->setText("");
+        ui->leftValue->setEnabled(true);
+    } else {
+        ui->BLEq->setText("dV/dx(x = ");
+        ui->leftValue->setText("V");
+        ui->leftValue->setEnabled(false);
     }
 }
 
 void MKEWindow::on_boundaryRight_currentIndexChanged(int index)
 {
-    if(index) {
+    if(index == 1) {
         ui->BREq->setText("dV/dx(x = ");
-    } else {
+        ui->rightValue->setText("");
+        ui->rightValue->setEnabled(true);
+    } else if(index == 0) {
         ui->BREq->setText("V(x = ");
+        ui->rightValue->setText("");
+        ui->rightValue->setEnabled(true);
+    } else {
+        ui->BREq->setText("dV/dx(x = ");
+        ui->rightValue->setText("V");
+        ui->rightValue->setEnabled(false);
     }
 }
 
@@ -75,8 +93,8 @@ void MKEWindow::on_GoButton_clicked()
         //std::cout << (BC[0] < BC[1]);
         qSort(BC);
     }
-    bool type1 = (ui->boundaryLeft->currentIndex()) && 1;
-    bool type2 = (ui->boundaryRight->currentIndex()) && 1;
+    int type1 = ui->boundaryLeft->currentIndex();
+    int type2 = ui->boundaryRight->currentIndex();
     double point1 =atof(ui->leftEnd->text().toUtf8().constData());
     double value1 =atof(ui->leftValue->text().toUtf8().constData());
     double point2 =atof(ui->rightEnd->text().toUtf8().constData());
@@ -175,7 +193,7 @@ void MKEWindow::on_addPoint_clicked()
     static int pointNumber;
     double point =atof(ui->addPointEdit->text().toUtf8().constData());
     double value =atof(ui->addPointVal->text().toUtf8().constData());
-    bounCond.push_back(BoundaryCondition(false, point, value));
+    bounCond.push_back(BoundaryCondition(0, point, value));
 
     ui->boundAddPoints->addItem("Точка №" + QString::number(pointNumber + 1));
     ui->boundAddPoints->setCurrentIndex(bounCond.size() - 1);

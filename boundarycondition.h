@@ -5,18 +5,18 @@
 
 class BoundaryCondition
 {
-    bool bType;
+    int bType;
     double point;
     double value;
 public:
-    BoundaryCondition(bool, double, double);
+    BoundaryCondition(int, double, double);
     BoundaryCondition();
 
-    void setType(bool);
+    void setType(int);
     void setPoint(double);
     void setValue(double);
 
-    bool getType();
+    int getType();
     double getPoint();
     double getValue();
 

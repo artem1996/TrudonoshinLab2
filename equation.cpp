@@ -71,14 +71,17 @@ void Equation::solution() {
         matrix->into_constants(j, cons*step/2);
 
         if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
-            if(BC[BCPoint].getType()) {
-                matrix->into_constants(i, k2 * BC[BCPoint].getValue() * (BCPoint ? 1:-1));
+            if(BC[BCPoint].getType() == 1) {
+                matrix->into_constants(i, - k2 * BC[BCPoint].getValue());
                 BCPoint++;
-            } else {
+            } else if(BC[BCPoint].getType() == 0) {
                 matrix->clearStr(i);
                 matrix->into_matrix(i,i,1) ;
                 //std::cout << "lol \n";
                 matrix->into_constants(i, BC[BCPoint].getValue());
+                BCPoint++;
+            } else {
+                matrix->into_matrix(i, i, k2);
                 BCPoint++;
             }
         }
@@ -90,14 +93,17 @@ void Equation::solution() {
     }
     xValues.push_back(tempPoint);
     if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
-        if(BC[BCPoint].getType()) {
-            matrix->into_constants(i, -k2*BC[BCPoint].getValue());
+        if(BC[BCPoint].getType() == 1) {
+            matrix->into_constants(i, k2 * BC[BCPoint].getValue());
             BCPoint++;
-        } else {
+        } else if(BC[BCPoint].getType() == 0) {
             matrix->clearStr(i);
             matrix->into_matrix(i,i,1) ;
             //std::cout << "lol \n";
             matrix->into_constants(i, BC[BCPoint].getValue());
+            BCPoint++;
+        } else {
+            matrix->into_matrix(i, i, -k2);
             BCPoint++;
         }
     }
@@ -142,14 +148,17 @@ void Equation::doubleSolution() {
         matrix->into_constants(k, -cons * step / 6);
 
         if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
-            if(BC[BCPoint].getType()) {
-                matrix->into_constants(i, k2 * BC[BCPoint].getValue() * (BCPoint ? -1:1));
+            if(BC[BCPoint].getType() == 1) {
+                matrix->into_constants(i, k2 * BC[BCPoint].getValue());
                 BCPoint++;
-            } else {
+            } else if(BC[BCPoint].getType() == 0) {
                 matrix->clearStr(i);
                 matrix->into_matrix(i,i,1) ;
                 //std::cout << "lol \n";
                 matrix->into_constants(i, BC[BCPoint].getValue());
+                BCPoint++;
+            } else {
+                matrix->into_matrix(i, i, - k2);
                 BCPoint++;
             }
         }
@@ -163,14 +172,17 @@ void Equation::doubleSolution() {
     }
     xValues.push_back(tempPoint);
     if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
-        if(BC[BCPoint].getType()) {
-            matrix->into_constants(i, k2*BC[BCPoint].getValue());
+        if(BC[BCPoint].getType() == 1) {
+            matrix->into_constants(i, -k2*BC[BCPoint].getValue());
             BCPoint++;
-        } else {
+        } else if(BC[BCPoint].getType() == 0) {
             matrix->clearStr(i);
             matrix->into_matrix(i,i,1) ;
             //std::cout << "lol \n";
             matrix->into_constants(i, BC[BCPoint].getValue());
+            BCPoint++;
+        } else {
+            matrix->into_matrix(i, i, k2);
             BCPoint++;
         }
     }
