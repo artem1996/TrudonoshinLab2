@@ -164,7 +164,7 @@ void Equation::doubleSolution() {
     xValues.push_back(tempPoint);
     if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
         if(BC[BCPoint].getType()) {
-            matrix->into_constants(i, -k2*BC[BCPoint].getValue());
+            matrix->into_constants(i, k2*BC[BCPoint].getValue());
             BCPoint++;
         } else {
             matrix->clearStr(i);
