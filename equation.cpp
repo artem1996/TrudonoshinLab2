@@ -30,9 +30,6 @@ void Equation::difficultStep(QVector<UnevenStep> steps) {
     }
 }
 
-void Equation::prepSolution() {
-    matrix = new gauss(xSteps.size() + 1);
-}
 
 void Equation::setBC(QVector<BoundaryCondition> tBC) {
     BC = tBC;
@@ -42,6 +39,7 @@ void Equation::setBC(QVector<BoundaryCondition> tBC) {
 }
 
 void Equation::solution() {
+    matrix = new gauss(xSteps.size() + 1);
     matrix->reset();
     double tempPoint = xLeft;
     int BCPoint = 0;
@@ -74,7 +72,7 @@ void Equation::solution() {
 
         if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
             if(BC[BCPoint].getType()) {
-                matrix->into_constants(i, BC[BCPoint].getValue() * (BCPoint ? 1:-1));
+                matrix->into_constants(i, k2 * BC[BCPoint].getValue() * (BCPoint ? 1:-1));
                 BCPoint++;
             } else {
                 matrix->clearStr(i);
@@ -88,6 +86,79 @@ void Equation::solution() {
         std::cout << k2/step << ' ' << k1/step << ' ' << k0/step << ' ' << cons/step << ' ' << step << "\n";
 
         //std::cout << tempPoint << '\n';
+        tempPoint += step;
+    }
+    xValues.push_back(tempPoint);
+    if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
+        if(BC[BCPoint].getType()) {
+            matrix->into_constants(i, -k2*BC[BCPoint].getValue());
+            BCPoint++;
+        } else {
+            matrix->clearStr(i);
+            matrix->into_matrix(i,i,1) ;
+            //std::cout << "lol \n";
+            matrix->into_constants(i, BC[BCPoint].getValue());
+            BCPoint++;
+        }
+    }
+    matrix->print_system();
+    matrix->triangle();
+    matrix->do_solution();
+    double * sol = matrix->get_solution();
+    for(i = 0; i < xValues.size(); i++) {
+        yValues.push_back(sol[i]);
+        //std::cout << xValues[i] << '\t' << yValues[i] << '\n';
+    }
+}
+
+void Equation::doubleSolution() {
+    matrix = new gauss(xSteps.size() * 2 + 1);
+    matrix->reset();
+    double tempPoint = xLeft;
+    int BCPoint = 0;
+    int i = 0;
+    for(i = 0; i < xSteps.size() * 2; i += 2) {
+        //std::cerr << i << " ";
+        //std::cout << BCPoint << " from " << BC.size() << "\n";
+        double step = xSteps[i / 2];
+
+        int j = i + 1;
+        int k = i + 2;
+
+        matrix->into_matrix(i,i,-7 * k2 / (3 * step) - k1 / 2 + 2 * k0 * step / 15);
+        matrix->into_matrix(i,j, 8 * k2 / (3 * step) + 2 * k1 / 3 + k0 * step / 15);
+        matrix->into_matrix(i,k, -k2 / (3 * step) - k1 / 6 - k0 * step / 30);
+
+        matrix->into_matrix(j,i, 8 * k2 / (3 * step) - 2 * k1 / 3 + k0 * step / 15);
+        matrix->into_matrix(j,j, -16 * k2 / (3 * step) + 8 * k0 * step / 15);
+        matrix->into_matrix(j,k, 8 * k2 / (3 * step) + 2 * k1 / 3 + k0 * step / 15);
+
+        matrix->into_matrix(k,i, -k2 / (3 * step) + k1 / 6 - k0 * step / 30);
+        matrix->into_matrix(k,j, 8 * k2 / (3 * step) - 2 * k1 / 3 + k0 * step / 15);
+        matrix->into_matrix(k,k, -7 * k2 / (3 * step) + k1 / 2 + 2 * k0 * step /15);
+
+        matrix->into_constants(i, -cons * step / 6);
+        matrix->into_constants(j, -2 * cons * step / 3);
+        matrix->into_constants(k, -cons * step / 6);
+
+        if(BCPoint < BC.size() && tempPoint >= BC[BCPoint].getPoint() - DIAP) {
+            if(BC[BCPoint].getType()) {
+                matrix->into_constants(i, k2 * BC[BCPoint].getValue() * (BCPoint ? -1:1));
+                BCPoint++;
+            } else {
+                matrix->clearStr(i);
+                matrix->into_matrix(i,i,1) ;
+                //std::cout << "lol \n";
+                matrix->into_constants(i, BC[BCPoint].getValue());
+                BCPoint++;
+            }
+        }
+
+        //std::cout << k2/step << ' ' << k1/step << ' ' << k0/step << ' ' << cons/step << ' ' << step << "\n";
+
+        std::cerr << tempPoint << '\n';
+        xValues.push_back(tempPoint);
+        xValues.push_back(tempPoint + step / 2);
         tempPoint += step;
     }
     xValues.push_back(tempPoint);

@@ -18,8 +18,8 @@ public:
     void simpleStep(int steps);
     void difficultStep(QVector<UnevenStep> steps);
     void setBC(QVector<BoundaryCondition> tBC);
-    void prepSolution();
     void solution();
+    void doubleSolution();
     QVector<double> getXValues();
     QVector<double> getYValues();
 

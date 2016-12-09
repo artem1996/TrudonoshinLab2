@@ -10,6 +10,8 @@ MKEWindow::MKEWindow(QWidget *parent) :
     ui->boundaryLeft->addItem("Производная");
     ui->boundaryRight->addItem("Константа");
     ui->boundaryRight->addItem("Производная");
+    ui->apprType->addItem("Линейная");
+    ui->apprType->addItem("Квадратичная");
     ui->BLEq->setAlignment(Qt::AlignRight);
     ui->BREq->setAlignment(Qt::AlignRight);
 
@@ -93,8 +95,11 @@ void MKEWindow::on_GoButton_clicked()
         qSort(unevStep);
         eq.difficultStep(unevStep);
     }
-    eq.prepSolution();
-    eq.solution();
+    if(ui->apprType->currentIndex()) {
+        eq.doubleSolution();
+    } else {
+        eq.solution();
+    }
 
     // Настраиваем шрифт по осям координат
     customPlot->xAxis->setTickLabelFont(QFont(QFont().family(), 8));
