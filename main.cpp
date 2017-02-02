@@ -25,8 +25,6 @@ int main() {
     eq.setBC(BC);
     vector<UnevenStep> unevenStep;
     unevenStep.push_back(UnevenStep(20, 0.45));
-    //unevenStep.push_back(UnevenStep(1, 6.0));
-    //unevenStep.push_back(UnevenStep(30, 0.1));
     eq.setStep(unevenStep);
     eq.solution();
     //eq.doubleSolution();
