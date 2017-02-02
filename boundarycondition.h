@@ -1,5 +1,10 @@
-#ifndef BOUNDARYCONDITION_H
-#define BOUNDARYCONDITION_H
+//
+// Created by note on 02.02.17.
+//
+
+#ifndef ARINATRUD2_BOUNDARYCONDITION_H
+#define ARINATRUD2_BOUNDARYCONDITION_H
+
 #include <iostream>
 
 
@@ -12,10 +17,6 @@ public:
     BoundaryCondition(int, double, double);
     BoundaryCondition();
 
-    void setType(int);
-    void setPoint(double);
-    void setValue(double);
-
     int getType();
     double getPoint();
     double getValue();
@@ -24,4 +25,4 @@ public:
     friend std::ostream &operator<<(std::ostream &out, BoundaryCondition &BC);
 };
 
-#endif // BOUNDARYCONDITION_H
+#endif //ARINATRUD2_BOUNDARYCONDITION_H

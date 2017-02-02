@@ -1,3 +1,7 @@
+//
+// Created by note on 02.02.17.
+//
+
 #include "boundarycondition.h"
 
 BoundaryCondition::BoundaryCondition()
@@ -9,18 +13,6 @@ BoundaryCondition::BoundaryCondition(int tType, double tPoint, double tValue)
 {
     bType = tType;
     point = tPoint;
-    value = tValue;
-}
-
-void BoundaryCondition::setType(int tType) {
-    bType = tType;
-}
-
-void BoundaryCondition::setPoint(double tPoint) {
-    point = tPoint;
-}
-
-void BoundaryCondition::setValue(double tValue) {
     value = tValue;
 }
 

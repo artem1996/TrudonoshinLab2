@@ -1,3 +1,7 @@
+//
+// Created by note on 02.02.17.
+//
+
 #include "gauss.h"
 
 gauss::gauss(int n) {

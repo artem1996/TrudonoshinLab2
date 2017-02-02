@@ -1,5 +1,11 @@
-#ifndef GAUSS_H
-#define GAUSS_H
+//
+// Created by note on 02.02.17.
+//
+
+#ifndef ARINATRUD2_GAUSS_H
+#define ARINATRUD2_GAUSS_H
+
+
 #include <iostream>
 #include <cmath>
 //#define capacity 3
@@ -24,4 +30,6 @@ public:
     int reset();
     int print_system();
 };
-#endif // GAUSS_H
+
+
+#endif //ARINATRUD2_GAUSS_H
