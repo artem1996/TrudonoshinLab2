@@ -145,7 +145,9 @@ void MKEWindow::on_GoButton_clicked()
     QVector<double> Yval;
     Yval.append(eq.getYValues());
     for(int i = 0; i < Xval.size(); i++) {
-        double temp = 0.0625 * (20 * Xval[i] + 25 * exp(-4*Xval[i]) - 25 / exp(24) - 104);
+        double znam = 6.0*(exp(54.0/5.0)-1);
+        double chisl = (-7*Xval[i] - 33*exp(6*Xval[i]/5)+exp(54.0/5)*(7*Xval[i]+60)-27);
+        double temp = chisl/znam;
         std::cerr << Xval[i] << '\t' << Yval[i] << '\t' << temp << '\t' << fabs(Yval[i] - temp) << '\n';
     }
     customPlot->rescaleAxes();      // Масштабируем график по данным
