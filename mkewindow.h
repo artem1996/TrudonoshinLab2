@@ -24,29 +24,8 @@ public:
     ~MKEWindow();
 
 private slots:
-    void on_boundaryLeft_currentIndexChanged(int index);
-
-    void on_boundaryRight_currentIndexChanged(int index);
 
     void on_GoButton_clicked();
-
-    void on_evenStepRadio_clicked();
-
-    void on_unevenStepRadio_clicked();
-
-    void on_addPointsCheck_clicked(bool checked);
-
-    void on_boundUnevStep_currentIndexChanged(int index);
-
-    void on_addPoint_clicked();
-
-    void on_delPoint_clicked();
-
-    void on_boundAddPoints_currentIndexChanged(int index);
-
-    void on_addStep_clicked();
-
-    void on_delStep_clicked();
 
 private:
     Ui::MKEWindow *ui;
