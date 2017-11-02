@@ -1,6 +1,16 @@
 #include "mkewindow.h"
 #include "ui_mkewindow.h"
 
+#define CV2 "4"
+#define CV1 "0"
+#define CV0 "-11"
+#define CCONST "12"
+
+#define BCLEFTX "0"
+#define BCLEFTY "4"
+#define BCRIGHTX "7"
+#define BCRIGHTY "2"
+
 MKEWindow::MKEWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MKEWindow)
@@ -20,12 +30,17 @@ MKEWindow::MKEWindow(QWidget *parent) :
     customPlot->axisRect()->setRangeZoom(Qt::Horizontal);   // Включаем удаление/приближение только по горизонтальной оси
 
     ui->BLEq->setText("V(x = ");
-    ui->leftValue->setText("");
-    ui->leftValue->setEnabled(true);
+    ui->leftEnd->setText(BCLEFTX);
+    ui->leftValue->setText(BCLEFTY);
 
     ui->BREq->setText("dV/dx(x = ");
-    ui->rightValue->setText("");
-    ui->rightValue->setEnabled(true);
+    ui->rightEnd->setText(BCLEFTX);
+    ui->rightValue->setText(BCRIGHTY);
+
+    ui->V2->setText(CV2);
+    ui->V1->setText(CV1);
+    ui->V0->setText(CV0);
+    ui->Constant->setText(CCONST);
 }
 
 MKEWindow::~MKEWindow()
@@ -36,16 +51,16 @@ MKEWindow::~MKEWindow()
 void MKEWindow::on_GoButton_clicked()
 {
     static int graphNumber;
-    double k2 = atof(ui->V2->text().toUtf8().constData());
-    double k1 = atof(ui->V1->text().toUtf8().constData());
-    double k0 = atof(ui->V0->text().toUtf8().constData());
-    double cons = atof(ui->Constant->text().toUtf8().constData());
+    double k2 = atof(CV2);
+    double k1 = atof(CV1);
+    double k0 = atof(CV0);
+    double cons = atof(CCONST);
 
     QVector<BoundaryCondition> BC;
-    double point1 =atof(ui->leftEnd->text().toUtf8().constData());
-    double value1 =atof(ui->leftValue->text().toUtf8().constData());
-    double point2 =atof(ui->rightEnd->text().toUtf8().constData());
-    double value2 =atof(ui->rightValue->text().toUtf8().constData());
+    double point1 =atof(BCLEFTX);
+    double value1 =atof(BCLEFTY);
+    double point2 =atof(BCRIGHTX);
+    double value2 =atof(BCRIGHTY);
     BC.push_front(BoundaryCondition(0, point1, value1));
     BC.push_back(BoundaryCondition(1, point2, value2));
 

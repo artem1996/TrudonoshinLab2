@@ -28,6 +28,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="V2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -38,6 +41,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="V1">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -48,6 +54,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="V0">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -58,6 +67,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="Constant">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -146,6 +158,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="leftEnd">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -156,6 +171,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="leftValue">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -169,6 +187,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="rightEnd">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -179,6 +200,9 @@
     </property>
    </widget>
    <widget class="QLineEdit" name="rightValue">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -307,7 +331,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>17</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
