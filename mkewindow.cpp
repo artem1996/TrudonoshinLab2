@@ -16,10 +16,6 @@ MKEWindow::MKEWindow(QWidget *parent) :
     ui(new Ui::MKEWindow)
 {
     ui->setupUi(this);
-    ui->BLEq->setAlignment(Qt::AlignRight);
-    ui->BREq->setAlignment(Qt::AlignRight);
-
-    ui->evenStepRadio->setChecked(true);
 
     customPlot = new QCustomPlot(); // Инициализируем графическое полотно
     ui->gridLayout->addWidget(customPlot,0,0,1,1);  // Устанавливаем customPlot в окно проложения
@@ -28,19 +24,6 @@ MKEWindow::MKEWindow(QWidget *parent) :
     customPlot->setInteraction(QCP::iRangeDrag, true);  // Включаем взаимодействие перетаскивания графика
     customPlot->axisRect()->setRangeDrag(Qt::Horizontal);   // Включаем перетаскивание только по горизонтальной оси
     customPlot->axisRect()->setRangeZoom(Qt::Horizontal);   // Включаем удаление/приближение только по горизонтальной оси
-
-    ui->BLEq->setText("V(x = ");
-    ui->leftEnd->setText(BCLEFTX);
-    ui->leftValue->setText(BCLEFTY);
-
-    ui->BREq->setText("dV/dx(x = ");
-    ui->rightEnd->setText(BCLEFTX);
-    ui->rightValue->setText(BCRIGHTY);
-
-    ui->V2->setText(CV2);
-    ui->V1->setText(CV1);
-    ui->V0->setText(CV0);
-    ui->Constant->setText(CCONST);
 }
 
 MKEWindow::~MKEWindow()
