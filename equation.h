@@ -20,6 +20,7 @@ public:
     void setBC(QVector<BoundaryCondition> tBC);
     void solution();
     void doubleSolution();
+    void tripperSolution();
     QVector<double> getXValues();
     QVector<double> getYValues();
 
